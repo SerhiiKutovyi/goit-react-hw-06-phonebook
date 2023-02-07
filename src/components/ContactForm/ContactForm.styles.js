@@ -29,6 +29,8 @@ export const FormStyled = styled.form`
     border: none;
     padding: 5px;
     max-width: 100px;
+    cursor: pointer;
+
     background-color: blue;
     color: white;
     border-radius: 4px;
