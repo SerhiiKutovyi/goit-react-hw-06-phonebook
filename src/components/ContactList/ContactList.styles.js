@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContactStyled = styled.ul`
-  margin-left: 40px;
+  margin-left: 10px;
   li {
     display: flex;
     margin-bottom: 10px;
@@ -12,6 +12,7 @@ export const ContactStyled = styled.ul`
   }
 
   button {
+    border: none;
     padding: 2px 5px;
     border-radius: 4px;
     background-color: coral;
