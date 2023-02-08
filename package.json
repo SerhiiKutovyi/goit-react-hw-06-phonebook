@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-06-phonebook.git",
+  "name": "goit-react-hw-06-movies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SerhiiKutovyi.github.io/goit-react-hw-06-phonebook.git/",
+  "homepage": "https://SerhiiKutovyi.github.io/goit-react-hw-06-movies/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.3",
