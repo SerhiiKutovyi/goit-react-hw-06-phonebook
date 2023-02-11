@@ -4,16 +4,18 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from '../ContactForm/ContactForm ';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
-// import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteAction } from 'redux/slice';
 
 const LOCAL_KEY = 'Users-key';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const [filter, setFilter] = useState('');
+
   const [contacts, setContacts] = useState(() => {
     return JSON.parse(window.localStorage.getItem(LOCAL_KEY)) ?? [];
   });
-
-  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem(LOCAL_KEY, JSON.stringify(contacts));
@@ -51,6 +53,7 @@ export const App = () => {
     setContacts(prevContacts =>
       prevContacts.filter(user => user.id !== userId)
     );
+    dispatch(deleteAction(userId));
   };
 
   return (
@@ -60,7 +63,6 @@ export const App = () => {
         <ContactForm onContactSubmit={formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter filter={filter} click={filterUsers} />
-
         <ContactList contacts={verification()} deleteUsers={deleteUsers} />
       </Section>
     </>

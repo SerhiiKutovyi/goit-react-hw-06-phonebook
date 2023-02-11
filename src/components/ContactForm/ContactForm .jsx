@@ -2,15 +2,13 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FormStyled } from './ContactForm.styles';
 import { useDispatch } from 'react-redux';
-import { addAction, deleteAction } from 'redux/actions';
+import { addAction } from 'redux/slice';
 
 export const ContactForm = ({ onContactSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const dispatch = useDispatch();
-
   const allState = { name, number };
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { value, name } = event.target;
