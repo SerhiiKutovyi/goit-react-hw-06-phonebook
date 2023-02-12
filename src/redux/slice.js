@@ -8,13 +8,11 @@ const userSlice = createSlice({
   },
   reducers: {
     addAction: (state, action) => {
-      console.log(state);
-      console.log(state.contacts);
       state.contacts.push(action.payload);
     },
 
     deleteAction: (state, { payload }) => {
-      state.users = state.users.filter(data => data.id !== payload);
+      state.users = state.contacts.filter(data => data.id !== payload);
     },
   },
 });
