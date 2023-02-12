@@ -1,1 +1,2 @@
-export const getUser = state => state.users;
+export const getContacts = state => state;
+export const getFilter = state => state.users;

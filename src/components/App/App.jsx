@@ -5,7 +5,7 @@ import { ContactForm } from '../ContactForm/ContactForm ';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
 import { useDispatch } from 'react-redux';
-import { deleteAction } from 'redux/slice';
+import { deleteAction, filterActon } from 'redux/slice';
 
 const LOCAL_KEY = 'Users-key';
 
@@ -35,6 +35,7 @@ export const App = () => {
 
   const filterUsers = event => {
     setFilter(event.target.value);
+    dispatch(filterActon(filter));
   };
 
   const verification = () => {

@@ -11,11 +11,17 @@ const userSlice = createSlice({
       state.contacts.push(action.payload);
     },
 
-    deleteAction: (state, { payload }) => {
-      state.users = state.contacts.filter(data => data.id !== payload);
+    deleteAction: (state, action) => {
+      state.contacts = state.contacts.filter(
+        data => data.id !== action.payload
+      );
+    },
+
+    filterActon: (state, action) => {
+      state.filter = action.payload;
     },
   },
 });
 
-export const { addAction, deleteAction } = userSlice.actions;
+export const { addAction, deleteAction, filterActon } = userSlice.actions;
 export const userReducer = userSlice.reducer;
