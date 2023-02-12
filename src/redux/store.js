@@ -1,13 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from './slice';
-
-const reducer = (state = userReducer) => {
-  return state;
-};
+import { contactsReducer } from './slice';
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
 export const store = configureStore({
   reducer: {
-    user: reducer,
+    user: contactsReducer,
+  },
+  //Error with non-serialized function in action
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
   },
 });
-//  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+export const persistor = persistStore(store);

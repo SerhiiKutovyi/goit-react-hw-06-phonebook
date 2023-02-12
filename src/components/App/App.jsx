@@ -1,41 +1,30 @@
-import { Section } from './App.styles';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts, deleteContacts, filterContacts } from 'redux/slice';
+import { selectContacts } from 'redux/selector';
 import { nanoid } from 'nanoid';
+
 import { ContactForm } from '../ContactForm/ContactForm ';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
-import { useDispatch } from 'react-redux';
-import { deleteAction, filterActon } from 'redux/slice';
 
-const LOCAL_KEY = 'Users-key';
+import { Section } from './App.styles';
+
+// const LOCAL_KEY = 'Users-key';
 
 export const App = () => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
-
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(LOCAL_KEY)) ?? [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(contacts));
-  }, [contacts]);
-
-  function formSubmitHandler(data) {
-    const newUser = {
-      id: nanoid(),
-      ...data,
-    };
-    if (contacts.find(contact => contact.name === data.name)) {
-      alert(`${data.name} is already in contacts!`);
-      return;
-    }
-    setContacts(prevContacts => [newUser, ...prevContacts]);
-  }
+  const contacts = useSelector(selectContacts);
 
   const filterUsers = event => {
     setFilter(event.target.value);
-    dispatch(filterActon(filter));
+    dispatch(filterContacts(filter));
+  };
+
+  const deleteUsers = userId => {
+    dispatch(deleteContacts(userId));
   };
 
   const verification = () => {
@@ -50,12 +39,17 @@ export const App = () => {
     }
   };
 
-  const deleteUsers = userId => {
-    setContacts(prevContacts =>
-      prevContacts.filter(user => user.id !== userId)
-    );
-    dispatch(deleteAction(userId));
-  };
+  function formSubmitHandler(data) {
+    if (contacts.find(contact => contact.name === data.name)) {
+      alert(`${data.name} is already in contacts!`);
+      return;
+    }
+    const newUser = {
+      id: nanoid(),
+      ...data,
+    };
+    dispatch(addContacts(newUser));
+  }
 
   return (
     <>
