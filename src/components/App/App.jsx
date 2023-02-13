@@ -1,8 +1,6 @@
-import { useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts, deleteContacts, filterContacts } from 'redux/slice';
-import { selectContacts } from 'redux/selector';
+import { selectContacts, selectFilter } from 'redux/selector';
 import { nanoid } from 'nanoid';
 
 import { ContactForm } from '../ContactForm/ContactForm ';
@@ -11,16 +9,13 @@ import { Filter } from '../Filter/Filter';
 
 import { Section } from './App.styles';
 
-// const LOCAL_KEY = 'Users-key';
-
 export const App = () => {
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState('');
   const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const filterUsers = event => {
-    setFilter(event.target.value);
-    dispatch(filterContacts(filter));
+    dispatch(filterContacts(event.target.value));
   };
 
   const deleteUsers = userId => {
